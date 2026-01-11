@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CorpusText extends Model
 {
     protected $fillable = [
+        'name',
         'text',
         'tokens',
     ];

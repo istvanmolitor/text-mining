@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('corpus_texts', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
             $table->text('text');
             $table->text('tokens');
             $table->timestamps();

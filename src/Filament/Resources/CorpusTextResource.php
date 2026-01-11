@@ -7,6 +7,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -36,6 +37,11 @@ class CorpusTextResource extends Resource
     {
         return $schema
             ->schema([
+                TextInput::make('name')
+                    ->label(__('text-mining::corpus-text.form.name'))
+                    ->required()
+                    ->unique(ignoreRecord: true)
+                    ->maxLength(255),
                 Textarea::make('text')
                     ->label(__('text-mining::corpus-text.form.text'))
                     ->required()
@@ -51,6 +57,10 @@ class CorpusTextResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->label(__('text-mining::corpus-text.table.id'))
+                    ->sortable(),
+                TextColumn::make('name')
+                    ->label(__('text-mining::corpus-text.table.name'))
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('text')
                     ->label(__('text-mining::corpus-text.table.text'))

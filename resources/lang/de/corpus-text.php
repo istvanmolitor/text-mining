@@ -15,10 +15,12 @@ return [
         'new_corpus_text' => 'Neuer Korpustext',
     ],
     'form' => [
+        'name' => 'Name',
         'text' => 'Text',
     ],
     'table' => [
         'id' => 'ID',
+        'name' => 'Name',
         'text' => 'Text',
         'tokens' => 'Tokens',
         'created_at' => 'Erstellt',
