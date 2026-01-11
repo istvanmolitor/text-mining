@@ -32,9 +32,8 @@ class TextMiningService
 
     public function splitIntoWords(string $sentence): array
     {
-        return array_map(function ($word) {
-            return trim($word);
-        }, explode(' ', $sentence));
+        $words = preg_split('/\W+/u', mb_strtolower($sentence), -1, PREG_SPLIT_NO_EMPTY);
+        return $words ?: [];
     }
 
     public function getUniqueWords(string $text): array
