@@ -10,6 +10,8 @@ class KeywordRepository implements KeywordRepositoryInterface
 {
     private Keyword $keyword;
 
+    private array $cache = [];
+
     public function __construct()
     {
         $this->keyword = new Keyword();
@@ -27,7 +29,15 @@ class KeywordRepository implements KeywordRepositoryInterface
 
     public function getByName(string $name): ?Keyword
     {
-        return $this->keyword->where('name', $name)->first();
+        if (!isset($this->cache[$name])) {
+            $keyword = $this->keyword->where('name', $name)->first();
+            if (!$keyword) {
+                $keyword = $this->keyword->create(['name' => $name]);
+            }
+
+            $this->cache[$name] = $keyword;
+        }
+        return $this->cache[$name];
     }
 
     public function create(array $keywords): void

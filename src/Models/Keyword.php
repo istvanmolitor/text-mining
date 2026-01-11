@@ -4,6 +4,7 @@ namespace Molitor\TextMining\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Keyword extends Model
@@ -28,5 +29,12 @@ class Keyword extends Model
     public function replacedKeywords(): HasMany
     {
         return $this->hasMany(Keyword::class, 'alias_keyword_id');
+    }
+
+    public function corpusTexts(): BelongsToMany
+    {
+        return $this->belongsToMany(CorpusText::class, 'corpus_text_keyword')
+            ->using(CorpusTextKeyword::class)
+            ->withPivot('frequency');
     }
 }

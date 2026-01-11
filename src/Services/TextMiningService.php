@@ -2,25 +2,32 @@
 
 namespace Molitor\TextMining\Services;
 
+use Molitor\TextMining\Models\CorpusText;
+use Molitor\TextMining\Repositories\CorpusTextKeywordRepositoryInterface;
+use Molitor\TextMining\Repositories\CorpusTextRepositoryInterface;
 use Molitor\TextMining\Repositories\KeywordRepositoryInterface;
 
 class TextMiningService
 {
     private bool $loaded = false;
-    private array $keywords = [];
-
-    public function loadKeywords(): void
-    {
-        $this->loaded = true;
-        $this->keywords = [];
-        foreach ($this->keywordRepository->all() as $keyword) {
-            $this->keywords[$keyword->name] = $keyword->alias_keyword_id ?? $keyword->id;
-        }
-    }
+    private array $keywordIds = [];
 
     public function __construct(
-        private KeywordRepositoryInterface $keywordRepository
-    ) {
+        private KeywordRepositoryInterface $keywordRepository,
+        private CorpusTextRepositoryInterface $corpusTextRepository,
+        private CorpusTextKeywordRepositoryInterface $corpusTextKeywordRepository
+    )
+    {
+
+    }
+
+    public function loadKeywordIds(): void
+    {
+        $this->loaded = true;
+        $this->keywordIds = [];
+        foreach ($this->keywordRepository->all() as $keyword) {
+            $this->keywordIds[$keyword->name] = $keyword->alias_keyword_id ?? $keyword->id;
+        }
     }
 
     public function splitIntoSentences(string $text): array
@@ -36,18 +43,25 @@ class TextMiningService
         return $words ?: [];
     }
 
-    public function getUniqueWords(string $text): array
+    public function textToWords(string $text): array
     {
         $words = [];
         foreach ($this->splitIntoSentences($text) as $sentence) {
-            $words = array_merge($words, $this->splitIntoWords($sentence));
+            foreach ($this->splitIntoWords($sentence) as $word) {
+                if(array_key_exists($word, $words)) {
+                    $words[$word]++;
+                }
+                else {
+                    $words[$word] = 1;
+                }
+            };
         }
-        return array_unique($words);
+        return $words;
     }
 
     public function flushKeywords(): void
     {
-        $this->keywords = [];
+        $this->keywordIds = [];
         $this->loaded = false;
     }
 
@@ -56,11 +70,11 @@ class TextMiningService
         $newKeywords = [];
 
         if(!$this->loaded) {
-            $this->loadKeywords();
+            $this->loadKeywordIds();
         }
 
         foreach ($keywords as $keyword) {
-            if(!isset($this->keywords[$keyword])) {
+            if(!isset($this->keywordIds[$keyword])) {
                 $newKeywords[] = $keyword;
             }
         }
@@ -68,9 +82,9 @@ class TextMiningService
         return $newKeywords;
     }
 
-    public function createKeywords(string $text): void
+    public function createKeywords(string $text): array
     {
-        $uniqueWords = $this->getUniqueWords($text);
+        $uniqueWords = $this->textToWords($text);
         if (count($uniqueWords)) {
             $newKeywords = $this->getNewKeywords($uniqueWords);
             if(count($newKeywords)) {
@@ -78,6 +92,7 @@ class TextMiningService
                 $this->flushKeywords();
             }
         }
+        return $uniqueWords;
     }
 
     public function getTokens(string $text): array
@@ -89,23 +104,50 @@ class TextMiningService
         $this->createKeywords($text);
 
         if (!$this->loaded) {
-            $this->loadKeywords();
+            $this->loadKeywordIds();
         }
 
-        $uniqueWords = $this->getUniqueWords($text);
+        $uniqueWords = $this->textToWords($text);
         $tokens = [];
 
         foreach ($uniqueWords as $word) {
-            if (isset($this->keywords[$word])) {
-                $tokens[] = $this->keywords[$word];
+            if (isset($this->keywordIds[$word])) {
+                $tokens[] = $this->keywordIds[$word];
             }
         }
 
-        return array_unique($tokens);
+        return $tokens;
     }
 
     public function getTokensString(string $text): string
     {
-        return implode(',', $this->getTokens($text));
+        $tokens = $this->getTokens($text);
+        return implode(',', $tokens);
+    }
+
+    public function deleteKeywords(CorpusText $corpusText): void
+    {
+        $this->corpusTextKeywordRepository->deleteByCorpusText($corpusText);
+    }
+
+    public function getKeywordId(string $word): int|null
+    {
+        return $this->keywordRepository->getByName($word)?->id;
+    }
+
+    public function updateKeywords(CorpusText $corpusText): void
+    {
+        $this->deleteKeywords($corpusText);
+        $this->createKeywords($corpusText->text);
+
+        $insert = [];
+        foreach ($this->textToWords($corpusText->text) as $word => $count) {
+            $insert[] = [
+                'corpus_text_id' => $corpusText->id,
+                'keyword_id' => $this->getKeywordId($word),
+                'frequency' => $count,
+            ];
+        }
+        $this->corpusTextKeywordRepository->createMany($insert);
     }
 }

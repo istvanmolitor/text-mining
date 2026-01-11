@@ -5,6 +5,8 @@ namespace Molitor\TextMining\Providers;
 use Illuminate\Support\ServiceProvider;
 use Molitor\TextMining\Models\CorpusText;
 use Molitor\TextMining\Observers\CorpusTextObserver;
+use Molitor\TextMining\Repositories\CorpusTextKeywordRepository;
+use Molitor\TextMining\Repositories\CorpusTextKeywordRepositoryInterface;
 use Molitor\TextMining\Repositories\CorpusTextRepository;
 use Molitor\TextMining\Repositories\CorpusTextRepositoryInterface;
 use Molitor\TextMining\Repositories\KeywordRepository;
@@ -24,5 +26,6 @@ class TextMiningServiceProvider extends ServiceProvider
     {
         $this->app->bind(KeywordRepositoryInterface::class, KeywordRepository::class);
         $this->app->bind(CorpusTextRepositoryInterface::class, CorpusTextRepository::class);
+        $this->app->bind(CorpusTextKeywordRepositoryInterface::class, CorpusTextKeywordRepository::class);
     }
 }
