@@ -24,7 +24,7 @@ class KeywordResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return 'Tartalom';
+        return 'Szövegbányászat';
     }
 
     public static function getNavigationLabel(): string

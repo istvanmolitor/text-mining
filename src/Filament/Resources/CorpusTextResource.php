@@ -24,12 +24,12 @@ class CorpusTextResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return 'Tartalom';
+        return 'Szövegbányászat';
     }
 
     public static function getNavigationLabel(): string
     {
-        return 'Kulcsszó szövegek';
+        return 'Szövegek';
     }
 
     public static function form(Schema $schema): Schema

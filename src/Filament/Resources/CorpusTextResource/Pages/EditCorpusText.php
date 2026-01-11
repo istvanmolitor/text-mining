@@ -18,7 +18,7 @@ class EditCorpusText extends EditRecord
 
     public function getTitle(): string
     {
-        return 'Kulcsszó szöveg szerkesztése';
+        return 'Szöveg szerkesztése';
     }
 
     protected function getHeaderActions(): array

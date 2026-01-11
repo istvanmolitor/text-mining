@@ -17,7 +17,7 @@ class CreateCorpusText extends CreateRecord
 
     public function getTitle(): string
     {
-        return 'Új kulcsszó szöveg';
+        return 'Új szöveg';
     }
 
     protected function mutateFormDataBeforeCreate(array $data): array
@@ -27,4 +27,3 @@ class CreateCorpusText extends CreateRecord
         return $data;
     }
 }
-

@@ -17,7 +17,7 @@ class ListCorpusTexts extends ListRecords
 
     public function getTitle(): string
     {
-        return 'Kulcsszó szövegek';
+        return 'Szövegek listája';
     }
 
     protected function getHeaderActions(): array
