@@ -21,14 +21,6 @@ class CorpusTextObserver
     }
 
     /**
-     * Handle the CorpusText "created" event.
-     */
-    public function created(CorpusText $corpusText): void
-    {
-        $this->textMiningService->updateKeywords($corpusText);
-    }
-
-    /**
      * Handle the CorpusText "updating" event.
      */
     public function updating(CorpusText $corpusText): void
@@ -37,9 +29,9 @@ class CorpusTextObserver
     }
 
     /**
-     * Handle the CorpusText "updated" event.
+     * Handle the CorpusText "saved" event.
      */
-    public function updated(CorpusText $corpusText): void
+    public function saved(CorpusText $corpusText): void
     {
         $this->textMiningService->updateKeywords($corpusText);
     }

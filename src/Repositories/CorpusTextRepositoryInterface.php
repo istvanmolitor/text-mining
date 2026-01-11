@@ -11,7 +11,7 @@ interface CorpusTextRepositoryInterface
 
     public function update(CorpusText $keywordText, array $data): bool;
 
-    public function create(array $data): CorpusText;
+    public function create(string $name, string $text): CorpusText;
 
     public function getByText(string $text): ?CorpusText;
 

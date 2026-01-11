@@ -29,9 +29,12 @@ class CorpusTextRepository implements CorpusTextRepositoryInterface
         return $this->corpusText->where('text', $text)->first();
     }
 
-    public function create(array $data): CorpusText
+    public function create(string $name, string $text): CorpusText
     {
-        return $this->corpusText->create($data);
+        return $this->corpusText->create([
+            'name' => $name,
+            'text' => $text,
+        ]);
     }
 
     public function update(CorpusText $keywordText, array $data): bool

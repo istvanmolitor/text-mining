@@ -21,6 +21,24 @@ class TextMiningService
 
     }
 
+    public function saveText(string $name, string $text): CorpusText
+    {
+        $corpusText = $this->corpusTextKeywordRepository->getByName($name);
+        if(!$corpusText) {
+            $corpusText = $this->corpusTextRepository->create($name, $text);
+        }
+
+        $oldText = $corpusText->text;
+        $corpusText->text = $text;
+        $corpusText->save();
+
+        if($oldText !== $text) {
+            $this->updateKeywords($corpusText);
+        }
+
+        return $corpusText;
+    }
+
     public function loadKeywordIds(): void
     {
         $this->loaded = true;
