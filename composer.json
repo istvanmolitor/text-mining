@@ -1,0 +1,26 @@
+{
+    "name": "istvanmolitor/text-mining",
+    "description": "Text mining package for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Molitor István",
+            "email": "istvanmolitor@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Molitor\\TextMining\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Molitor\\TextMining\\Providers\\TextMiningServiceProvider"
+            ]
+        }
+    }
+}
