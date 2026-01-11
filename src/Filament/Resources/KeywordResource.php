@@ -24,12 +24,12 @@ class KeywordResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return 'Szövegbányászat';
+        return __('text-mining::common.group');
     }
 
     public static function getNavigationLabel(): string
     {
-        return 'Kulcsszavak';
+        return __('text-mining::keyword.title');
     }
 
     public static function form(Schema $schema): Schema
@@ -37,21 +37,21 @@ class KeywordResource extends Resource
         return $schema
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->label('Név')
+                    ->label(__('text-mining::keyword.form.name'))
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
                 Forms\Components\Select::make('alias_keyword_id')
-                    ->label('Alias kulcsszó')
+                    ->label(__('text-mining::keyword.form.alias_keyword'))
                     ->relationship('aliasKeyword', 'name')
                     ->searchable()
                     ->preload()
                     ->nullable()
-                    ->helperText('Ha ez be van állítva, akkor ez a kulcsszó helyettesítve lesz a kiválasztott kulcsszóval.'),
+                    ->helperText(__('text-mining::keyword.form.alias_keyword_helper')),
                 Forms\Components\Toggle::make('is_stop_word')
-                    ->label('Stop szó')
+                    ->label(__('text-mining::keyword.form.is_stop_word'))
                     ->default(false)
-                    ->helperText('A stop szavak nem kerülnek be a cikkekbe.'),
+                    ->helperText(__('text-mining::keyword.form.is_stop_word_helper')),
             ]);
     }
 
@@ -60,21 +60,21 @@ class KeywordResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Név')
+                    ->label(__('text-mining::keyword.table.name'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('aliasKeyword.name')
-                    ->label('Alias kulcsszó')
+                    ->label(__('text-mining::keyword.table.alias_keyword'))
                     ->searchable()
                     ->sortable()
                     ->badge()
                     ->color('info'),
                 Tables\Columns\IconColumn::make('is_stop_word')
-                    ->label('Stop szó')
+                    ->label(__('text-mining::keyword.table.is_stop_word'))
                     ->boolean()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('replacedKeywords_count')
-                    ->label('Helyettesített kulcsszavak')
+                    ->label(__('text-mining::keyword.table.replaced_keywords_count'))
                     ->counts('replacedKeywords')
                     ->sortable()
                     ->badge()
@@ -82,10 +82,10 @@ class KeywordResource extends Resource
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_stop_word')
-                    ->label('Stop szó')
+                    ->label(__('text-mining::keyword.filters.is_stop_word'))
                     ->nullable(),
                 Tables\Filters\Filter::make('has_alias')
-                    ->label('Van alias')
+                    ->label(__('text-mining::keyword.filters.has_alias'))
                     ->query(fn ($query) => $query->whereNotNull('alias_keyword_id')),
             ])
             ->actions([

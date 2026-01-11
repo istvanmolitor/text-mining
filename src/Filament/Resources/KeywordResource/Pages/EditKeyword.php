@@ -16,7 +16,7 @@ class EditKeyword extends EditRecord
 
     public function getTitle(): string
     {
-        return 'Kulcsszó szerkesztése';
+        return __('text-mining::keyword.edit');
     }
 }
 

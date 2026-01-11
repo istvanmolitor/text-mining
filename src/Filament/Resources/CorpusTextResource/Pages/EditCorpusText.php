@@ -13,19 +13,19 @@ class EditCorpusText extends EditRecord
 
     public function getBreadcrumb(): string
     {
-        return 'Szerkesztés';
+        return __('text-mining::corpus-text.breadcrumb.edit');
     }
 
     public function getTitle(): string
     {
-        return 'Szöveg szerkesztése';
+        return __('text-mining::corpus-text.edit');
     }
 
     protected function getHeaderActions(): array
     {
         return [
             DeleteAction::make()
-                ->label('Törlés'),
+                ->label(__('text-mining::corpus-text.delete')),
         ];
     }
 

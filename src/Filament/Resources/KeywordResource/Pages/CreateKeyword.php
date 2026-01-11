@@ -16,7 +16,7 @@ class CreateKeyword extends CreateRecord
 
     public function getTitle(): string
     {
-        return 'Kulcsszó létrehozása';
+        return __('text-mining::keyword.create');
     }
 }
 

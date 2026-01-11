@@ -24,12 +24,12 @@ class CorpusTextResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return 'Szövegbányászat';
+        return __('text-mining::common.group');
     }
 
     public static function getNavigationLabel(): string
     {
-        return 'Szövegek';
+        return __('text-mining::corpus-text.title');
     }
 
     public static function form(Schema $schema): Schema
@@ -37,7 +37,7 @@ class CorpusTextResource extends Resource
         return $schema
             ->schema([
                 Textarea::make('text')
-                    ->label('Szöveg')
+                    ->label(__('text-mining::corpus-text.form.text'))
                     ->required()
                     ->maxLength(65535)
                     ->rows(5)
@@ -50,25 +50,25 @@ class CorpusTextResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
+                    ->label(__('text-mining::corpus-text.table.id'))
                     ->sortable(),
                 TextColumn::make('text')
-                    ->label('Szöveg')
+                    ->label(__('text-mining::corpus-text.table.text'))
                     ->searchable()
                     ->limit(50)
                     ->wrap(),
                 TextColumn::make('tokens')
-                    ->label('Tokenek')
+                    ->label(__('text-mining::corpus-text.table.tokens'))
                     ->searchable()
                     ->limit(30)
                     ->wrap(),
                 TextColumn::make('created_at')
-                    ->label('Létrehozva')
+                    ->label(__('text-mining::corpus-text.table.created_at'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('updated_at')
-                    ->label('Módosítva')
+                    ->label(__('text-mining::corpus-text.table.updated_at'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

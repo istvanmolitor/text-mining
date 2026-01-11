@@ -12,19 +12,19 @@ class ListCorpusTexts extends ListRecords
 
     public function getBreadcrumb(): string
     {
-        return 'Lista';
+        return __('text-mining::corpus-text.breadcrumb.list');
     }
 
     public function getTitle(): string
     {
-        return 'Szövegek listája';
+        return __('text-mining::corpus-text.list');
     }
 
     protected function getHeaderActions(): array
     {
         return [
             CreateAction::make()
-                ->label('Új kulcsszó szöveg')
+                ->label(__('text-mining::corpus-text.actions.new_corpus_text'))
                 ->icon('heroicon-o-plus'),
         ];
     }

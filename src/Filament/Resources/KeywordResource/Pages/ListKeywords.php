@@ -12,19 +12,19 @@ class ListKeywords extends ListRecords
 
     public function getBreadcrumb(): string
     {
-        return 'Lista';
+        return __('text-mining::keyword.breadcrumb.list');
     }
 
     public function getTitle(): string
     {
-        return 'Kulcsszavak';
+        return __('text-mining::keyword.title');
     }
 
     protected function getHeaderActions(): array
     {
         return [
             Actions\CreateAction::make()
-                ->label('Új kulcsszó')
+                ->label(__('text-mining::keyword.actions.new_keyword'))
                 ->icon('heroicon-o-plus'),
         ];
     }

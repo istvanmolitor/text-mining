@@ -12,12 +12,12 @@ class CreateCorpusText extends CreateRecord
 
     public function getBreadcrumb(): string
     {
-        return 'Létrehozás';
+        return __('text-mining::corpus-text.breadcrumb.create');
     }
 
     public function getTitle(): string
     {
-        return 'Új szöveg';
+        return __('text-mining::corpus-text.create');
     }
 
     protected function mutateFormDataBeforeCreate(array $data): array
