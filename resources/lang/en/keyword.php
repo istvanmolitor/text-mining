@@ -29,5 +29,10 @@ return [
         'is_stop_word' => 'Stop Word',
         'has_alias' => 'Has Alias',
     ],
+    'messages' => [
+        'created' => 'Keyword created successfully.',
+        'updated' => 'Keyword updated successfully.',
+        'deleted' => 'Keyword deleted successfully.',
+    ],
 ];
 

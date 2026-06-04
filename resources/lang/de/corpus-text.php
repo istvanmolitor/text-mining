@@ -26,5 +26,10 @@ return [
         'created_at' => 'Erstellt',
         'updated_at' => 'Aktualisiert',
     ],
+    'messages' => [
+        'created' => 'Korpustext erfolgreich erstellt.',
+        'updated' => 'Korpustext erfolgreich aktualisiert.',
+        'deleted' => 'Korpustext erfolgreich gelöscht.',
+    ],
 ];
 

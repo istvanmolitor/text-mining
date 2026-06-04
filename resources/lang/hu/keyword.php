@@ -29,5 +29,10 @@ return [
         'is_stop_word' => 'Stop szó',
         'has_alias' => 'Van alias',
     ],
+    'messages' => [
+        'created' => 'A kulcsszó sikeresen létrejött.',
+        'updated' => 'A kulcsszó sikeresen frissítve.',
+        'deleted' => 'A kulcsszó sikeresen törölve.',
+    ],
 ];
 

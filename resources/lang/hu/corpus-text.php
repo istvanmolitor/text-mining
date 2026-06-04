@@ -26,5 +26,10 @@ return [
         'created_at' => 'Létrehozva',
         'updated_at' => 'Módosítva',
     ],
+    'messages' => [
+        'created' => 'A szöveg sikeresen létrejött.',
+        'updated' => 'A szöveg sikeresen frissítve.',
+        'deleted' => 'A szöveg sikeresen törölve.',
+    ],
 ];
 

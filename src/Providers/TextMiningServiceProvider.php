@@ -2,6 +2,7 @@
 
 namespace Molitor\TextMining\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Molitor\TextMining\Models\CorpusText;
 use Molitor\TextMining\Observers\CorpusTextObserver;
@@ -19,7 +20,9 @@ class TextMiningServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'text-mining');
 
-        CorpusText::observe(CorpusTextObserver::class);
+        $this->app->make(Router::class)
+            ->group(['prefix' => 'api'], __DIR__.'/../routes/api.php');
+
     }
 
     public function register()

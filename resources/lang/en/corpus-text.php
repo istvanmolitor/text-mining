@@ -26,5 +26,10 @@ return [
         'created_at' => 'Created',
         'updated_at' => 'Updated',
     ],
+    'messages' => [
+        'created' => 'Corpus text created successfully.',
+        'updated' => 'Corpus text updated successfully.',
+        'deleted' => 'Corpus text deleted successfully.',
+    ],
 ];
 

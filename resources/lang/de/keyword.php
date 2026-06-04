@@ -29,5 +29,10 @@ return [
         'is_stop_word' => 'Stoppwort',
         'has_alias' => 'Hat Alias',
     ],
+    'messages' => [
+        'created' => 'Schlüsselwort erfolgreich erstellt.',
+        'updated' => 'Schlüsselwort erfolgreich aktualisiert.',
+        'deleted' => 'Schlüsselwort erfolgreich gelöscht.',
+    ],
 ];
 
