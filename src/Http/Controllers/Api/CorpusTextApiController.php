@@ -10,10 +10,15 @@ use Molitor\TextMining\Http\Requests\StoreCorpusTextRequest;
 use Molitor\TextMining\Http\Requests\UpdateCorpusTextRequest;
 use Molitor\TextMining\Http\Resources\CorpusTextResource;
 use Molitor\TextMining\Models\CorpusText;
+use Molitor\TextMining\Services\TextMiningService;
 
 class CorpusTextApiController extends Controller
 {
     use HasAdminFilters;
+
+    public function __construct(private TextMiningService $textMiningService)
+    {
+    }
 
     public function index(Request $request): JsonResponse
     {
@@ -56,11 +61,7 @@ class CorpusTextApiController extends Controller
     public function store(StoreCorpusTextRequest $request): JsonResponse
     {
         $validated = $request->validated();
-
-        $corpusText = CorpusText::create([
-            'name' => $validated['name'],
-            'text' => $validated['text'],
-        ]);
+        $this->textMiningService->createText($validated['name'], $validated['text']);
 
         return response()->json([
             'data' => new CorpusTextResource($corpusText),
@@ -71,11 +72,7 @@ class CorpusTextApiController extends Controller
     public function update(UpdateCorpusTextRequest $request, CorpusText $corpusText): JsonResponse
     {
         $validated = $request->validated();
-
-        $corpusText->update([
-            'name' => $validated['name'],
-            'text' => $validated['text'],
-        ]);
+        $this->textMiningService->updateText($corpusText, $validated['text']);
 
         return response()->json([
             'data' => new CorpusTextResource($corpusText->fresh()),
