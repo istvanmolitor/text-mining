@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->text('text');
-            $table->text('tokens');
             $table->timestamps();
         });
     }
