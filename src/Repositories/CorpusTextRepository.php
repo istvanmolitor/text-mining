@@ -19,9 +19,27 @@ class CorpusTextRepository implements CorpusTextRepositoryInterface
         return $this->corpusText->cursor();
     }
 
+    public function countNotUpdated(): int
+    {
+        return $this->corpusText->where('is_updated', false)->count();
+    }
+
+    public function cursorNotUpdated(): LazyCollection
+    {
+        return $this->corpusText
+            ->where('is_updated', false)
+            ->orderBy('id')
+            ->cursor();
+    }
+
     public function getById(int $id): ?CorpusText
     {
         return $this->corpusText->find($id);
+    }
+
+    public function getByName(string $name): ?CorpusText
+    {
+        return $this->corpusText->where('name', $name)->first();
     }
 
     public function getByText(string $text): ?CorpusText

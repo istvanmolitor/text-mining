@@ -10,7 +10,7 @@ class CorpusText extends Model
     protected $fillable = [
         'name',
         'text',
-        'tokens',
+        'is_updated',
     ];
 
     public $timestamps = true;

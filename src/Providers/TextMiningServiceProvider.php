@@ -4,6 +4,7 @@ namespace Molitor\TextMining\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Molitor\TextMining\Console\Commands\UpdateCorpusTextKeywordsCommand;
 use Molitor\TextMining\Models\CorpusText;
 use Molitor\TextMining\Observers\CorpusTextObserver;
 use Molitor\TextMining\Repositories\CorpusTextKeywordRepository;
@@ -19,6 +20,12 @@ class TextMiningServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'text-mining');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                UpdateCorpusTextKeywordsCommand::class,
+            ]);
+        }
 
         $this->app->make(Router::class)
             ->group(['prefix' => 'api'], __DIR__.'/../routes/api.php');

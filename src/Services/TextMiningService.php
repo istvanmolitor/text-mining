@@ -27,8 +27,8 @@ class TextMiningService
 
         if($oldText !== $text) {
             $corpusText->text = $text;
+            $corpusText->is_updated = false;
             $corpusText->save();
-            $this->updateKeywords($corpusText);
         }
 
         return $corpusText;
@@ -36,7 +36,7 @@ class TextMiningService
 
     public function createText(string $name, string $text): CorpusText
     {
-        $corpusText = $this->corpusTextKeywordRepository->getByName($name);
+        $corpusText = $this->corpusTextRepository->getByName($name);
         if(!$corpusText) {
             $corpusText = $this->corpusTextRepository->create($name, $text);
         }
@@ -172,5 +172,6 @@ class TextMiningService
             ];
         }
         $this->corpusTextKeywordRepository->createMany($insert);
+        $this->corpusTextRepository->update($corpusText, ['is_updated' => true]);
     }
 }

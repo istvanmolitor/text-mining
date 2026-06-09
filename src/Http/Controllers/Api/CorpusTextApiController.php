@@ -61,7 +61,7 @@ class CorpusTextApiController extends Controller
     public function store(StoreCorpusTextRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        $this->textMiningService->createText($validated['name'], $validated['text']);
+        $corpusText = $this->textMiningService->createText($validated['name'], $validated['text']);
 
         return response()->json([
             'data' => new CorpusTextResource($corpusText),
