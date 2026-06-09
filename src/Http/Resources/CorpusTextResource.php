@@ -13,6 +13,7 @@ class CorpusTextResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'text' => $this->text,
+            'is_updated' => (bool) $this->is_updated,
             'tokens' => $this->tokens,
             'created_at' => $this->created_at?->toDateTimeString(),
             'updated_at' => $this->updated_at?->toDateTimeString(),
