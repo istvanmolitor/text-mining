@@ -66,6 +66,16 @@ class TextMiningService
         return $words ?: [];
     }
 
+    public function splitText(string $text): array
+    {
+        $sentences = $this->splitIntoSentences($text);
+        $words = [];
+        foreach ($sentences as $sentence) {
+            $words = array_merge($words, $this->splitIntoWords($sentence));
+        }
+        return $words;
+    }
+
     public function textToWords(string $text): array
     {
         $words = [];

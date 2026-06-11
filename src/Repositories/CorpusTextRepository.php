@@ -64,4 +64,9 @@ class CorpusTextRepository implements CorpusTextRepositoryInterface
     {
         return $keywordText->delete();
     }
+
+    public function deleteAll(): int
+    {
+        return $this->corpusText->newQuery()->delete();
+    }
 }

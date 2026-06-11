@@ -61,4 +61,9 @@ class KeywordRepository implements KeywordRepositoryInterface
     {
         return $keyword->delete();
     }
+
+    public function deleteAll(): int
+    {
+        return $this->keyword->newQuery()->delete();
+    }
 }

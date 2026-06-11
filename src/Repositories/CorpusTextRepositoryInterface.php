@@ -9,6 +9,8 @@ interface CorpusTextRepositoryInterface
 {
     public function delete(CorpusText $keywordText): bool;
 
+    public function deleteAll(): int;
+
     public function update(CorpusText $keywordText, array $data): bool;
 
     public function countNotUpdated(): int;

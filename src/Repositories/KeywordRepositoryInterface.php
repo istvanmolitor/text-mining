@@ -20,4 +20,6 @@ interface KeywordRepositoryInterface
     public function update(Keyword $keyword, array $data): bool;
 
     public function delete(Keyword $keyword): bool;
+
+    public function deleteAll(): int;
 }
