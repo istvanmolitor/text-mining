@@ -3,7 +3,7 @@
 namespace Molitor\TextMining\Console\Commands;
 
 use Illuminate\Console\Command;
-use Molitor\TextMining\Repositories\CorpusTextRepositoryInterface;
+use Molitor\TextMining\Models\CorpusText;
 
 class DeleteAllCorpusTextsCommand extends Command
 {
@@ -11,9 +11,9 @@ class DeleteAllCorpusTextsCommand extends Command
 
     protected $description = 'Delete all corpus text records';
 
-    public function handle(CorpusTextRepositoryInterface $corpusTextRepository): int
+    public function handle(): int
     {
-        $deletedCount = $corpusTextRepository->deleteAll();
+        $deletedCount = CorpusText::query()->delete();
 
         $this->info("Deleted {$deletedCount} corpus texts.");
 

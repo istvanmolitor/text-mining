@@ -5,7 +5,6 @@ namespace Molitor\TextMining\Providers;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Molitor\TextMining\Console\Commands\DeleteAllCorpusTextsCommand;
-use Molitor\TextMining\Console\Commands\DeleteAllKeywordsCommand;
 use Molitor\TextMining\Console\Commands\UpdateCorpusTextKeywordsCommand;
 use Molitor\TextMining\Models\CorpusText;
 use Molitor\TextMining\Observers\CorpusTextObserver;
@@ -26,7 +25,6 @@ class TextMiningServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 DeleteAllCorpusTextsCommand::class,
-                DeleteAllKeywordsCommand::class,
                 UpdateCorpusTextKeywordsCommand::class,
             ]);
         }
