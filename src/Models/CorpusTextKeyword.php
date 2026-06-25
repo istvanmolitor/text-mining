@@ -4,6 +4,7 @@ namespace Molitor\TextMining\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Molitor\Keyword\Models\Keyword;
 
 class CorpusTextKeyword extends Pivot
 {
@@ -33,4 +34,3 @@ class CorpusTextKeyword extends Pivot
         return $this->belongsTo(Keyword::class);
     }
 }
-

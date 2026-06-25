@@ -6,14 +6,10 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Molitor\TextMining\Console\Commands\DeleteAllCorpusTextsCommand;
 use Molitor\TextMining\Console\Commands\UpdateCorpusTextKeywordsCommand;
-use Molitor\TextMining\Models\CorpusText;
-use Molitor\TextMining\Observers\CorpusTextObserver;
 use Molitor\TextMining\Repositories\CorpusTextKeywordRepository;
 use Molitor\TextMining\Repositories\CorpusTextKeywordRepositoryInterface;
 use Molitor\TextMining\Repositories\CorpusTextRepository;
 use Molitor\TextMining\Repositories\CorpusTextRepositoryInterface;
-use Molitor\TextMining\Repositories\KeywordRepository;
-use Molitor\TextMining\Repositories\KeywordRepositoryInterface;
 
 class TextMiningServiceProvider extends ServiceProvider
 {
@@ -36,7 +32,6 @@ class TextMiningServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind(KeywordRepositoryInterface::class, KeywordRepository::class);
         $this->app->bind(CorpusTextRepositoryInterface::class, CorpusTextRepository::class);
         $this->app->bind(CorpusTextKeywordRepositoryInterface::class, CorpusTextKeywordRepository::class);
     }

@@ -4,6 +4,7 @@ namespace Molitor\TextMining\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Molitor\Keyword\Models\Keyword;
 
 class CorpusText extends Model
 {
@@ -23,4 +24,3 @@ class CorpusText extends Model
             ->withPivot('frequency');
     }
 }
-

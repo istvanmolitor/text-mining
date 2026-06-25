@@ -2,10 +2,10 @@
 
 namespace Molitor\TextMining\Services;
 
+use Molitor\Keyword\Repositories\KeywordRepositoryInterface;
 use Molitor\TextMining\Models\CorpusText;
 use Molitor\TextMining\Repositories\CorpusTextKeywordRepositoryInterface;
 use Molitor\TextMining\Repositories\CorpusTextRepositoryInterface;
-use Molitor\TextMining\Repositories\KeywordRepositoryInterface;
 
 class TextMiningService
 {
