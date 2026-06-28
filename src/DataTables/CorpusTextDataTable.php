@@ -24,5 +24,6 @@ class CorpusTextDataTable extends DataTable
     {
         $this->addColumn('name')->setSearchable()->setOrderable();
         $this->addColumn('text')->setSearchable();
+        $this->addColumn('is_updated')->setLabel('Frissítve');
     }
 }
