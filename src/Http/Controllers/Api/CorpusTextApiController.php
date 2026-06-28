@@ -3,9 +3,9 @@
 namespace Molitor\TextMining\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Routing\Controller;
-use Molitor\Admin\Traits\HasAdminFilters;
+use Molitor\TextMining\DataTables\CorpusTextDataTable;
 use Molitor\TextMining\Http\Requests\StoreCorpusTextRequest;
 use Molitor\TextMining\Http\Requests\UpdateCorpusTextRequest;
 use Molitor\TextMining\Http\Resources\CorpusTextResource;
@@ -14,29 +14,13 @@ use Molitor\TextMining\Services\TextMiningService;
 
 class CorpusTextApiController extends Controller
 {
-    use HasAdminFilters;
-
     public function __construct(private TextMiningService $textMiningService)
     {
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(CorpusTextDataTable $dataTable): AnonymousResourceCollection
     {
-        $query = CorpusText::query();
-        $corpusTexts = $this->applyAdminFilters($query, $request, ['name', 'text'])
-            ->paginate(10)
-            ->withQueryString();
-
-        return response()->json([
-            'data' => CorpusTextResource::collection($corpusTexts->items()),
-            'meta' => [
-                'current_page' => $corpusTexts->currentPage(),
-                'last_page' => $corpusTexts->lastPage(),
-                'per_page' => $corpusTexts->perPage(),
-                'total' => $corpusTexts->total(),
-            ],
-            'filters' => $request->only(['search', 'sort', 'direction']),
-        ]);
+        return $dataTable->getResponse();
     }
 
     public function create(): JsonResponse
